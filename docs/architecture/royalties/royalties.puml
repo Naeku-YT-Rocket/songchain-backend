@@ -1,0 +1,28 @@
+@startuml royalty_claims_er
+
+entity "Royalty" as r {
+  id: UUID <<generated>>
+  --
+  digital_asset_id: UUID **<<FK>>**
+}
+entity "DigitalAsset" as d {
+  id: UUID <<generated>>
+}
+
+entity "Partition" as p {
+  id: UUID <<generated>>
+}
+
+entity "RoyaltyClaims" as pr {
+  id: UUID <<generated>>
+  --
+  royalty_id: UUID **<<FK>>**
+  partition_id: UUID **<<FK>>**
+}
+
+
+d ||..|{ r
+r ||..|{ pr
+p ||..|{ pr
+
+@enduml

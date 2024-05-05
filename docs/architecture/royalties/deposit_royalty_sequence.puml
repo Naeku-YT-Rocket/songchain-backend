@@ -1,0 +1,30 @@
+@startuml deposit_royalty_sequence.puml
+
+skinparam style strictuml
+
+participant client as c
+participant songchain_service as s
+participant songchain_db as db
+
+autoactivate on
+
+c -> s: Crear depósito de regalías por {digital_asset_id}
+
+    s -> db: Crear regalía asociada a {digital_asset_id}
+    return
+
+    s -> db: Consulta todas las particiones asociadas al {digital_asset_id}
+    return
+
+    autoactivate off
+    s -> s: Calcular monto correspondiente a partición de regalía
+    autoactivate on
+
+    s -> db: Crear royalty claim asociado a {partition_id}
+    return
+
+    
+return Confirmación de creación
+
+
+@enduml
